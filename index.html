@@ -8,6 +8,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<!-- Яндекс Метрика (счётчик 113776068). Вебвизор НЕ включать — её решение 25.10 -->
+<script type="text/javascript">
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=113776068", "ym");
+  ym(113776068, "init", { ssr: true, clickmap: true, trackLinks: true, accurateTrackBounce: true });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113776068" style="position:absolute; left:-9999px;" alt=""></div></noscript>
 <style>
   :root {
     --linen: #F6F3EF;
@@ -205,6 +215,17 @@
   footer p { line-height: 1.7; }
   .nobr { white-space: nowrap; }
   .finale .btn { min-width: 250px; justify-content: center; }
+  footer a { color: #EDE5E0; }
+  /* Плашка про cookie */
+  .cookie {
+    position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50; margin: 0 auto; max-width: 560px;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 16px;
+    background: var(--paper); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+    box-shadow: 0 12px 30px -12px rgba(42, 33, 30, .35); font-size: 15px; text-align: center;
+  }
+  .cookie[hidden] { display: none; }
+  .cookie p { margin: 0; }
+  .cookie button { min-height: 44px; padding: 8px 22px; border-radius: 10px; border: 0; background: var(--plum); color: #fff; font: 600 15px var(--body); cursor: pointer; }
   footer p { font-size: 14px; }
   .bridge { text-align: center; font-weight: 600; font-size: 18px; color: var(--plum); margin: 40px auto 0; max-width: 640px; }
   footer .btn-ghost { color: #fff; border-color: #fff; }
@@ -455,9 +476,14 @@
 <footer>
   <div class="wrap">
     <p>Косомова Г. М. · самозанятая <span class="nobr">(налог на профессиональный доход)</span><br>
-      <span class="nobr">чек на каждую оплату</span></p>
+      <span class="nobr">чек на каждую оплату</span> · <a href="politika.html">Политика конфиденциальности</a></p>
   </div>
 </footer>
+
+<div class="cookie" id="cookie" hidden>
+  <p>Сайт использует cookie и Яндекс Метрику, чтобы считать посещения. <a href="politika.html">Подробнее</a></p>
+  <button type="button" id="cookie-ok">Понятно</button>
+</div>
 
 <script>
 // ===== ЦЕНЫ И ВОПРОСЫ. Менять цифры — здесь (lo — «от», hi — «до»). =====
@@ -768,6 +794,18 @@ function fallback(text, ok) {
 }
 
 render();
+
+// ===== Плашка про cookie: показать один раз, пока не нажали «Понятно» =====
+(function () {
+  const box = document.getElementById('cookie');
+  let seen = false;
+  try { seen = localStorage.getItem('cookie-ok') === '1'; } catch (e) {}
+  if (!seen) box.hidden = false;
+  document.getElementById('cookie-ok').addEventListener('click', () => {
+    box.hidden = true;
+    try { localStorage.setItem('cookie-ok', '1'); } catch (e) {}
+  });
+})();
 </script>
 </body>
 </html>
